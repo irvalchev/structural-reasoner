@@ -1,0 +1,10 @@
+C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\ConsoleTestApp\bin\Debug\Gecko.StructuralReasoner.dll
+C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\ConsoleTestApp\bin\Debug\CS3.CDAStar.mqm.dll
+C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\ConsoleTestApp\bin\Debug\Gecko.StructuralReasoner.pdb
+C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\ConsoleTestApp\obj\Debug\ConsoleTestApp.csprojResolveAssemblyReference.cache
+C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\ConsoleTestApp\obj\Debug\ConsoleTestApp.exe
+C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\ConsoleTestApp\obj\Debug\ConsoleTestApp.pdb
+C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\ConsoleTestApp\bin\Debug\cs3.cdastar.mqm.license
+C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\ConsoleTestApp\bin\Debug\ConsoleTestApp.exe.config
+C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\ConsoleTestApp\bin\Debug\ConsoleTestApp.exe
+C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\ConsoleTestApp\bin\Debug\ConsoleTestApp.pdb

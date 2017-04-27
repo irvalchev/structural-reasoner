@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Gecko.StructuralReasoner.DomainConstraints.AttributeDomainRelationPart" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAABIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DomainConstraints\AttributeDomainRelationPart.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.DomainConstraints.AttributeFilter" Collapsed="true">
+    <Position X="9.25" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAIAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>DomainConstraints\AttributeFilter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.DomainConstraints.ComponentDomainRelationPart" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DomainConstraints\ComponentDomainRelationPart.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.DomainConstraints.ComponentFilter" Collapsed="true">
+    <Position X="7.5" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAIAQAAAABAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DomainConstraints\ComponentFilter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.DomainConstraints.DomainConstraint">
+    <Position X="1.5" Y="3.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>CAJAAGAAEAAAAAAAAQAAAAQAAAAAAAgAAAAABAAAACA=</HashCode>
+      <FileName>DomainConstraints\DomainConstraint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.DomainConstraints.DomainConstraintCombination">
+    <Position X="5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>DomainConstraints\DomainConstraintCombination.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.DomainConstraints.IaToMetricDomainConstraint" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAACBAAAAAAAAQAEAAAAAIAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DomainConstraints\IaToMetricDomainConstraint.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.DomainConstraints.MetricDomainRelationPart" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>DomainConstraints\MetricDomainRelationPart.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.DomainConstraints.PaToMetricDomainConstraint" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAACQAAAAAACAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DomainConstraints\PaToMetricDomainConstraint.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.Relations.BinaryRelation" Collapsed="true">
+    <Position X="11.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAUAABAAAgAQEAQAAAAQAAgAEAAAAAAAABAAAAAE=</HashCode>
+      <FileName>Relations\BinaryRelation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.Relations.QualitativeRelation" Collapsed="true">
+    <Position X="11.75" Y="1.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAEAQAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Relations\QualitativeRelation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.Relations.RelationFamily" Collapsed="true">
+    <Position X="15.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAACAQAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Relations\RelationFamily.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.GKOAttribute" Collapsed="true">
+    <Position X="8.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAgAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>GKO\GKOAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.GKOComponent" Collapsed="true">
+    <Position X="10.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAEAAAAgAQAAAAAAAAA=</HashCode>
+      <FileName>GKO\GKOComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.GKOComponentType" Collapsed="true">
+    <Position X="12.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GKO\GKOComponentType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.GKOConfiguration" Collapsed="true">
+    <Position X="8.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>GKO\GKOConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.GKOConstraint" Collapsed="true">
+    <Position X="10.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQUAAAAAAAA=</HashCode>
+      <FileName>GKO\GKOConstraint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.GKOConstraintType" Collapsed="true">
+    <Position X="12.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACBAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>GKO\GKOConstraintType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.GKODomain" Collapsed="true">
+    <Position X="7" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>GKO\GKODomain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.GKODomainAbstract" Collapsed="true">
+    <Position X="6.25" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAIAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GKO\GKODomainAbstract.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.GKOIntDomain" Collapsed="true">
+    <Position X="5.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAgAAAAAAAAAAAAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>GKO\GKOIntDomain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.GKOStructuringContext" Collapsed="true">
+    <Position X="8.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAIAAIAAAAAAAAIAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>GKO\GKOStructuringContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.MetricRelationPart" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="13" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAIABAAgAAgAAAAAABIAAAACAAIAAAAAAAABA=</HashCode>
+      <FileName>MetricRelationPart.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.ConfigurationConstraintTree">
+    <Position X="0.5" Y="7.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAEAAAAADAAQAAgAAQAQAECAABBAQQAAAgAAgQCA=</HashCode>
+      <FileName>ConfigurationConstraintTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.ConfigurationConstraint">
+    <Position X="5.75" Y="9" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CCBAIWAAAAgAAAAEgAAAAAAAAAAAAAgDAAAAAEAAACA=</HashCode>
+      <FileName>ConfigurationConstraint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.ComponentRelationPart" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAIAAAAgAAgAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>ComponentRelationPart.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gecko.StructuralReasoner.AttributeRelationPart" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAIAACAgAAgAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>AttributeRelationPart.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Gecko.StructuralReasoner.DomainConstraints.IDomainRelationPart" Collapsed="true">
+    <Position X="8.25" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DomainConstraints\IDomainRelationPart.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Gecko.StructuralReasoner.Relations.MetricRelations.IMetricRelation" Collapsed="true">
+    <Position X="13.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAEAAAAAA=</HashCode>
+      <FileName>Relations\MetricRelations\IMetricRelation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Gecko.StructuralReasoner.IRelationPart" Collapsed="true">
+    <Position X="3.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IRelationPart.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Gecko.StructuralReasoner.DomainConstraints.DomainConstraintCombinationType" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAACA=</HashCode>
+      <FileName>DomainConstraints\DomainConstraintCombination.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{737D52DB-1980-42C8-9D55-2622C729630E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Gecko.StructuralReasoner</RootNamespace>
+    <AssemblyName>Gecko.StructuralReasoner</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CS3.CDAStar.mqm, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>CS3\CS3.CDAStar.mqm.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttributeRelationPart.cs" />
+    <Compile Include="ComponentRelationPart.cs" />
+    <Compile Include="ConfigurationConstraint.cs" />
+    <Compile Include="ConfigurationConstraintTree.cs" />
+    <Compile Include="ConfigurationStructure.cs" />
+    <Compile Include="ConstraintRepresentation\ConstraintNetwork.cs" />
+    <Compile Include="ConstraintRepresentation\Edge.cs" />
+    <Compile Include="ConstraintRepresentation\MetricEdge.cs" />
+    <Compile Include="ConstraintRepresentation\Node.cs" />
+    <Compile Include="ConstraintRepresentation\QualitativeEdge.cs" />
+    <Compile Include="DomainConstraints\DomainConstraintCombination.cs" />
+    <Compile Include="DomainConstraints\PaToMetricDomainConstraint.cs" />
+    <Compile Include="DomainConstraints\IaToMetricDomainConstraint.cs" />
+    <Compile Include="DomainConstraints\ITransformDomainConstraint.cs" />
+    <Compile Include="DomainConstraints\SimpleDomainConstraintsSource.cs" />
+    <Compile Include="RandomProblemGenerator.cs" />
+    <Compile Include="Relations\MetricRelations\GreaterOrEquals.cs" />
+    <Compile Include="Relations\MetricRelations\GreaterOrEqualsN.cs" />
+    <Compile Include="Relations\MetricRelations\LessOrEquals.cs" />
+    <Compile Include="Relations\MetricRelations\LessOrEqualsN.cs" />
+    <Compile Include="SimpleKnowledgeBase.cs" />
+    <Compile Include="SolutionData.cs" />
+    <Compile Include="SolutionDataQualitative.cs" />
+    <Compile Include="SolutionDataMetric.cs" />
+    <Compile Include="ConstraintRepresentation\Stp.cs" />
+    <Compile Include="ConstraintRepresentation\Tcsp.cs" />
+    <Compile Include="DomainConstraints\AttributeDomainRelationPart.cs" />
+    <Compile Include="DomainConstraints\AttributeFilter.cs" />
+    <Compile Include="DomainConstraints\ComponentDomainRelationPart.cs" />
+    <Compile Include="DomainConstraints\ComponentFilter.cs" />
+    <Compile Include="DomainConstraints\DomainConstraint.cs" />
+    <Compile Include="DomainConstraints\DomainConstraintsSource.cs" />
+    <Compile Include="DomainConstraints\IDomainRelationPart.cs" />
+    <Compile Include="DomainConstraints\MetricDomainRelationPart.cs" />
+    <Compile Include="GKO\GKOAttribute.cs" />
+    <Compile Include="GKO\GKOComponent.cs" />
+    <Compile Include="GKO\GKOComponentType.cs" />
+    <Compile Include="GKO\GKOConfiguration.cs" />
+    <Compile Include="GKO\GKOConstraint.cs" />
+    <Compile Include="GKO\GKOConstraintType.cs" />
+    <Compile Include="GKO\GKODomain.cs" />
+    <Compile Include="GKO\GKODomainAbstract.cs" />
+    <Compile Include="GKO\GKOIntDomain.cs" />
+    <Compile Include="GKO\GKOStructuringContext.cs" />
+    <Compile Include="Helpers\GKOIntDomainExtensions.cs" />
+    <Compile Include="Helpers\Interval.cs" />
+    <Compile Include="IRelationPart.cs" />
+    <Compile Include="KnowledgeBase.cs" />
+    <Compile Include="Logging\Log.cs" />
+    <Compile Include="Logging\LogItem.cs" />
+    <Compile Include="MetricRelationPart.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Relations\BinaryRelation.cs" />
+    <Compile Include="Relations\MetricRelations\GreaterThan.cs" />
+    <Compile Include="Relations\MetricRelations\AfterN.cs" />
+    <Compile Include="Relations\MetricRelations\LessThan.cs" />
+    <Compile Include="Relations\MetricRelations\BeforeN.cs" />
+    <Compile Include="Relations\MetricRelations\Equals.cs" />
+    <Compile Include="Relations\MetricRelations\EqualsN.cs" />
+    <Compile Include="Relations\MetricRelations\GreaterThanN.cs" />
+    <Compile Include="Relations\MetricRelations\IMetricRelation.cs" />
+    <Compile Include="Relations\MetricRelations\LessThanN.cs" />
+    <Compile Include="Relations\MetricRelations\NotEquals.cs" />
+    <Compile Include="Relations\MetricRelations\NotEqualsN.cs" />
+    <Compile Include="Relations\QualitativeRelation.cs" />
+    <Compile Include="Relations\RelationFamily.cs" />
+    <Compile Include="Relations\RelationsNames.cs" />
+    <Compile Include="Relations\StructuralRelationsManager.cs" />
+    <Compile Include="StructuralReasoner.cs" />
+    <Compile Include="StructuralReasonerOptions.cs" />
+    <Compile Include="TestConfiguration\TestDomainConstraintsSource.cs" />
+    <Compile Include="TestConfiguration\TestKnowledgeBase.cs" />
+    <Compile Include="Tms\TmsConstraint.cs" />
+    <Compile Include="Tms\TmsDecisionVariable.cs" />
+    <Compile Include="Tms\TmsHelperExtensions.cs" />
+    <Compile Include="Tms\TmsManager.cs" />
+    <Compile Include="Tms\TmsResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CS3\CS3.CDAStar.mqm.dll" />
+    <None Include="ClassDiagram1.cd" />
+    <Content Include="cs3.cdastar.mqm.license">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="CS3\cs3.cdastar.mqm.license" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CS3\HardwareID.txt" />
+    <None Include="CS3\HID.exe" />
+    <None Include="CS3\setup.exe" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
