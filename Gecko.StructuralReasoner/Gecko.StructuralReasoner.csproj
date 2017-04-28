@@ -129,16 +129,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CS3\CS3.CDAStar.mqm.dll" />
+    <Content Include="CS3\HardwareID.txt" />
+    <Content Include="CS3\HID.exe" />
     <None Include="ClassDiagram1.cd" />
     <Content Include="cs3.cdastar.mqm.license">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="CS3\cs3.cdastar.mqm.license" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CS3\HardwareID.txt" />
-    <None Include="CS3\HID.exe" />
-    <None Include="CS3\setup.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
