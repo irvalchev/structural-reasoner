@@ -1,7 +1,0 @@
-C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\Gecko.StructuralReasoner\bin\Debug\cs3.cdastar.mqm.license
-C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\Gecko.StructuralReasoner\bin\Debug\Gecko.StructuralReasoner.dll
-C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\Gecko.StructuralReasoner\bin\Debug\Gecko.StructuralReasoner.pdb
-C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\Gecko.StructuralReasoner\bin\Debug\CS3.CDAStar.mqm.dll
-C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\Gecko.StructuralReasoner\obj\Debug\Gecko.StructuralReasoner.csprojResolveAssemblyReference.cache
-C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\Gecko.StructuralReasoner\obj\Debug\Gecko.StructuralReasoner.dll
-C:\Users\Iliya\Dropbox\study\tum\thesis\implementation\Gecko.StructuralReasoner\obj\Debug\Gecko.StructuralReasoner.pdb
