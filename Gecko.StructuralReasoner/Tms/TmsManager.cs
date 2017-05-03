@@ -51,12 +51,12 @@ namespace Gecko.StructuralReasoner.Tms
         /// <returns></returns>
         public static GKODomain GenerateBoolDomain()
         {
-            GKODomain domain = new GKODomain();
-
-            domain.Id = TmsManager.DomainNameBool;
-            domain.Name = TmsManager.DomainNameBool;
-            domain.Values = new List<string>() { TmsManager.TrueValue, TmsManager.FalseValue };
-
+            GKODomain domain = new GKODomain()
+            {
+                Id = DomainNameBool,
+                Name = DomainNameBool,
+                Values = new List<string>() { TrueValue, FalseValue }
+            };
             return domain;
         }
 
@@ -89,6 +89,7 @@ namespace Gecko.StructuralReasoner.Tms
         /// <param name="constraints">The constraint to be satisfied</param>
         public void Solve(List<TmsDecisionVariable> decisionVariables, List<TmsDecisionVariable> softDecisionVariables, List<TmsConstraint> constraints, SolutionData solutionInformation)
         {
+            TmsResult result = null;
             ISolutionsIterator solutionIterator;
             ISolution solution;
 
@@ -96,68 +97,66 @@ namespace Gecko.StructuralReasoner.Tms
             this.Constraints = new List<IConstraint>();
 
             // ToDo: See how to clear the previous context
-            //cdaStarTms.Clear();
+            cdaStarTms.Clear();
 
-            // ToDo: commented for testing purposes. Fix when CS3 works
-            //decisionVariables.ForEach(x => Variables.Add(x.Name, x.CreateIVariable(cdaStarTms, Domains)));
-            //softDecisionVariables.ForEach(x => Variables.Add(x.Name, x.CreateIVariable(cdaStarTms, Domains)));
-            //constraints.ForEach(x => Constraints.Add(x.CreateIConstraint(cdaStarTms, Variables, ConstraintTypes)));
+            decisionVariables.ForEach(x => Variables.Add(x.Name, x.CreateIVariable(cdaStarTms, Domains)));
+            softDecisionVariables.ForEach(x => Variables.Add(x.Name, x.CreateIVariable(cdaStarTms, Domains)));
+            constraints.ForEach(x => Constraints.Add(x.CreateIConstraint(cdaStarTms, Variables, ConstraintTypes)));
 
-            //cdaStarTms.DefAggregateUtility(UtilityFunction);
+            cdaStarTms.DefAggregateUtility(UtilityFunction);
 
-            //foreach (var softDVar in softDecisionVariables)
-            //{
-            //    // Rem: The order of the variables in the boolean domain is important for the utility function
-            //    cdaStarTms.DefAttribute(softDVar.Name);
-            //    // True value is evaluated to 1
-            //    cdaStarTms.set_Utility(softDVar.Name, 0, softDVar.UtilityFactor);
-            //    // False value is evaluated to 0
-            //    cdaStarTms.set_Utility(softDVar.Name, 1, 0);
-            //}
+            foreach (var softDVar in softDecisionVariables)
+            {
+                // Rem: The order of the variables in the boolean domain is important for the utility function
+                cdaStarTms.DefAttribute(softDVar.Name);
+                // True value is evaluated to 1
+                cdaStarTms.set_Utility(softDVar.Name, 0, softDVar.UtilityFactor);
+                // False value is evaluated to 0
+                cdaStarTms.set_Utility(softDVar.Name, 1, 0);
+            }
 
-            //foreach (var dVar in decisionVariables)
-            //{
-            //    // To extract the value the normal variables should be specified as attributes for the CDA*
-            //    cdaStarTms.DefAttribute(dVar.Name);
-            //    for (int i = 0; i < dVar.Domain.GetValues().Count; i++)
-            //    {
-            //        cdaStarTms.set_Utility(dVar.Name, i, 0);
-            //    }
-            //}
+            foreach (var dVar in decisionVariables)
+            {
+                // To extract the value the normal (non-soft) variables should be specified as attributes for the CDA*
+                cdaStarTms.DefAttribute(dVar.Name);
+                for (int i = 0; i < dVar.Domain.GetValues().Count; i++)
+                {
+                    cdaStarTms.set_Utility(dVar.Name, i, 0);
+                }
+            }
 
-            //solutionIterator = cdaStarTms.Solutions();
-            //solution = solutionIterator.FirstSolution();
+            solutionIterator = cdaStarTms.Solutions();
+            solution = solutionIterator.FirstSolution();
 
-            //if (solution != null)
-            //{
-            //    // ToDo: Assign solution information
-            //    solutionInformation.SolutionFound = true;
+            if (solution != null)
+            {
+                // ToDo: Assign solution information
+                solutionInformation.SolutionFound = true;
 
-            //    Debug.WriteLine("");
-            //    Debug.WriteLine(solution.AsString());
+                Debug.WriteLine("");
+                Debug.WriteLine(solution.AsString());
 
-            //    Debug.WriteLine("");
-            //    Debug.WriteLine("Utility: " + solution.Utility());
+                Debug.WriteLine("");
+                Debug.WriteLine("Utility: " + solution.Utility());
 
-            //    Debug.WriteLine("");
-            //    Debug.WriteLine("-----------DVARS-----------");
-            //    foreach (var var in decisionVariables)
-            //    {
-            //        Debug.WriteLine(string.Format("{0} - {1}", var.Name, solution.Value(var.Name)));
-            //    }
+                Debug.WriteLine("");
+                Debug.WriteLine("-----------DVARS-----------");
+                foreach (var var in decisionVariables)
+                {
+                    Debug.WriteLine(string.Format("{0} - {1}", var.Name, solution.Value(var.Name)));
+                }
 
-            //    Debug.WriteLine("");
-            //    Debug.WriteLine("-----------SOFT-DVARS-----------");
-            //    foreach (var var in softDecisionVariables)
-            //    {
-            //        Debug.WriteLine(string.Format("{0} - {1}", var.Name, solution.Value(var.Name)));
-            //    }
-            //}
-            //else
-            //{
-            //    solutionInformation.SolutionFound = false;
-            //}
-
+                Debug.WriteLine("");
+                Debug.WriteLine("-----------SOFT-DVARS-----------");
+                foreach (var var in softDecisionVariables)
+                {
+                    Debug.WriteLine(string.Format("{0} - {1}", var.Name, solution.Value(var.Name)));
+                }
+            }
+            else
+            {
+                solutionInformation.SolutionFound = false;
+            }
         }
 
         /// <summary>
@@ -178,7 +177,7 @@ namespace Gecko.StructuralReasoner.Tms
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            this.BoolDomain = TmsManager.GenerateBoolDomain();
+            this.BoolDomain = GenerateBoolDomain();
             this.MetricDomain = GenerateMetricDomain();
             //this.CalculiPwSetIxDomain = GenerateCalculiPwSetIxDomain();
             this.CalculiDomains = StructuralRelationsManager.CalculiDomains;
@@ -252,41 +251,44 @@ namespace Gecko.StructuralReasoner.Tms
         /// <returns></returns>
         private GKOIntDomain GenerateMetricDomain()
         {
-            GKOIntDomain domain = new GKOIntDomain();
-
-            domain.Id = TmsManager.DomainNameMetric;
-            domain.Name = TmsManager.DomainNameMetric;
-            domain.StepWidth = 1;
-            domain.MinValue = StructuralRelationsManager.MetricDomain.MinValue;
-            domain.MaxValue = structuralReasonerOptions.MaxMetricValue;
-
-            return domain;
-        }
-
-        /// <summary>
-        /// Generates the domain used as index for the powerset of the enabled calculi
-        /// </summary>
-        /// <returns></returns>
-        private GKOIntDomain GenerateCalculiPwSetIxDomain()
-        {
-            GKOIntDomain domain = new GKOIntDomain();
-
-            domain.Id = TmsManager.DomainNameCalculiPwSetIx;
-            domain.Name = TmsManager.DomainNameCalculiPwSetIx;
-            domain.StepWidth = 1;
-            domain.MinValue = 0;
-            domain.MaxValue = (int)Math.Pow(2, StructuralRelationsManager.RelationFamilies.Max(x => x.Relations.Count));
+            GKOIntDomain domain = new GKOIntDomain()
+            {
+                Id = DomainNameMetric,
+                Name = DomainNameMetric,
+                StepWidth = 1,
+                MinValue = StructuralRelationsManager.MetricDomain.MinValue,
+                MaxValue = structuralReasonerOptions.MaxMetricValue
+            };
 
             return domain;
         }
+
+        ///// <summary>
+        ///// Generates the domain used as index for the powerset of the enabled calculi
+        ///// </summary>
+        ///// <returns></returns>
+        //private GKOIntDomain GenerateCalculiPwSetIxDomain()
+        //{
+        //    GKOIntDomain domain = new GKOIntDomain()
+        //    {
+        //        Id = DomainNameCalculiPwSetIx,
+        //        Name = DomainNameCalculiPwSetIx,
+        //        StepWidth = 1,
+        //        MinValue = 0,
+        //        MaxValue = (int)Math.Pow(2, StructuralRelationsManager.RelationFamilies.Max(x => x.Relations.Count))
+        //    };
+
+        //    return domain;
+        //}
 
         #region Constraint Types
 
         /// <summary>
-        /// Creates constraint types in the CS3, each new CT contains only one value from a domain
+        /// Creates constraint types in the CS3, each new CT contains only one value from a domain.
+        /// NOTE: These constraint types are used to allow only one value to be selected for a variable.
         /// </summary>
         /// <param name="domain">The domain to create constraint types for</param>
-        /// <param name="addSoft">Specifies whether to add a softness varible at the end</param>
+        /// <param name="addSoft">Specifies whether to add a softness variable at the end</param>
         private void CreateIndividualCTForDomain(GKODomainAbstract domain, bool addSoft)
         {
             List<GKOConstraintType> constraintTypes = new List<GKOConstraintType>();
@@ -313,19 +315,21 @@ namespace Gecko.StructuralReasoner.Tms
 
             foreach (var value in domainValues)
             {
-                GKOConstraintType ct = new GKOConstraintType();
-                ct.Id = domain.GetIndividualValueCTName(value);
-                ct.Name = domain.GetIndividualValueCTName(value);
-                ct.Signature = new List<GKODomainAbstract>() { domain };
-                ct.Tuples = new List<List<string>>() { new List<string>() { value } };
+                GKOConstraintType ct = new GKOConstraintType()
+                {
+                    Id = domain.GetIndividualValueCTName(value),
+                    Name = domain.GetIndividualValueCTName(value),
+                    Signature = new List<GKODomainAbstract>() { domain },
+                    Tuples = new List<List<string>>() { new List<string>() { value } }
+                };
 
                 if (addSoft)
                 {
                     ct.Signature.Add(this.BoolDomain);
-                    ct.Tuples[0].Add(TmsManager.TrueValue);
+                    ct.Tuples[0].Add(TrueValue);
                     foreach (var excludedValue in domainValues)
                     {
-                        ct.Tuples.Add(new List<string>() { excludedValue, TmsManager.FalseValue });
+                        ct.Tuples.Add(new List<string>() { excludedValue, FalseValue });
                     }
                 }
 
@@ -484,78 +488,78 @@ namespace Gecko.StructuralReasoner.Tms
             this.ConstraintTypes.Add(ct.Name, ct.CreateIConstraintType(cdaStarTms, this.Domains));
         }
 
-        /// <summary>
-        /// Create all constraint types corresponding to the subsets of the relations in a relation family
-        /// </summary>
-        /// <param name="calculus">The relation family</param>
-        private void CreateCTForPowerset(RelationFamily calculus)
-        {
-            //GKOConstraintType constraintType;
-            //GKODomainAbstract relationsDomain;
-            //GKODomainAbstract powerSetIxDomain;
-            //bool enableSoftConstraints = this.structuralReasonerOptions.SoftConstraintsEnabled;
+        ///// <summary>
+        ///// Create all constraint types corresponding to the subsets of the relations in a relation family
+        ///// </summary>
+        ///// <param name="calculus">The relation family</param>
+        //private void CreateCTForPowerset(RelationFamily calculus)
+        //{
+        //    //GKOConstraintType constraintType;
+        //    //GKODomainAbstract relationsDomain;
+        //    //GKODomainAbstract powerSetIxDomain;
+        //    //bool enableSoftConstraints = this.structuralReasonerOptions.SoftConstraintsEnabled;
 
-            //if (calculus.Name == RelationFamilyNames.MetricRelationsName)
-            //{
-            //    throw new NotSupportedException("The metric relations do not support this operation.");
-            //}
+        //    //if (calculus.Name == RelationFamilyNames.MetricRelationsName)
+        //    //{
+        //    //    throw new NotSupportedException("The metric relations do not support this operation.");
+        //    //}
 
-            //relationsDomain = StructuralRelationsManager.GetDomain(calculus.GetTmsRelationsDomainName());
-            //powerSetIxDomain = this.CalculiPwSetIxDomain;
+        //    //relationsDomain = StructuralRelationsManager.GetDomain(calculus.GetTmsRelationsDomainName());
+        //    //powerSetIxDomain = this.CalculiPwSetIxDomain;
 
-            //constraintType = new GKOConstraintType();
-            //constraintType.Id = calculus.GetPwSetCTName();
-            //constraintType.Name = calculus.GetPwSetCTName();
-            //constraintType.Signature = new List<GKODomainAbstract>() { powerSetIxDomain, relationsDomain };
-            //constraintType.Tuples = new List<List<string>>();
-            //if (enableSoftConstraints)
-            //{
-            //    constraintType.Signature.Add(this.BoolDomain);
-            //}
+        //    //constraintType = new GKOConstraintType();
+        //    //constraintType.Id = calculus.GetPwSetCTName();
+        //    //constraintType.Name = calculus.GetPwSetCTName();
+        //    //constraintType.Signature = new List<GKODomainAbstract>() { powerSetIxDomain, relationsDomain };
+        //    //constraintType.Tuples = new List<List<string>>();
+        //    //if (enableSoftConstraints)
+        //    //{
+        //    //    constraintType.Signature.Add(this.BoolDomain);
+        //    //}
 
-            //// The name of the constraint is labeled by the integer representation of the included relations
-            //// e.g. set 17 = 10001, i.e. relations 0 and 3 are included in the constraint with label 17
-            //for (int setIx = 1; setIx < Math.Pow(2, calculus.Relations.Count); setIx++)
-            //{
-            //    List<BinaryRelation> includedRelations = new List<BinaryRelation>();
+        //    //// The name of the constraint is labeled by the integer representation of the included relations
+        //    //// e.g. set 17 = 10001, i.e. relations 0 and 3 are included in the constraint with label 17
+        //    //for (int setIx = 1; setIx < Math.Pow(2, calculus.Relations.Count); setIx++)
+        //    //{
+        //    //    List<BinaryRelation> includedRelations = new List<BinaryRelation>();
 
-            //    for (int i = 0; i < calculus.Relations.Count; i++)
-            //    {
-            //        if ((setIx & (1 << i)) != 0)
-            //        {
-            //            //n-th bit is set, so we include the n-th relation
-            //            includedRelations.Add(calculus.Relations[i]);
-            //        }
-            //    }
+        //    //    for (int i = 0; i < calculus.Relations.Count; i++)
+        //    //    {
+        //    //        if ((setIx & (1 << i)) != 0)
+        //    //        {
+        //    //            //n-th bit is set, so we include the n-th relation
+        //    //            includedRelations.Add(calculus.Relations[i]);
+        //    //        }
+        //    //    }
 
-            //    // When soft constraints are enabled the constraint types should be adjusted accordingly
-            //    if (enableSoftConstraints)
-            //    {
-            //        List<BinaryRelation> excludedReltions = calculus.Relations.Except(includedRelations).ToList();
+        //    //    // When soft constraints are enabled the constraint types should be adjusted accordingly
+        //    //    if (enableSoftConstraints)
+        //    //    {
+        //    //        List<BinaryRelation> excludedReltions = calculus.Relations.Except(includedRelations).ToList();
 
-            //        foreach (var rel in includedRelations)
-            //        {
-            //            constraintType.Tuples.Add(new List<string>() { setIx.ToString(), rel.Name, TmsManager.TrueValue });
-            //        }
+        //    //        foreach (var rel in includedRelations)
+        //    //        {
+        //    //            constraintType.Tuples.Add(new List<string>() { setIx.ToString(), rel.Name, TmsManager.TrueValue });
+        //    //        }
 
-            //        // Adding the non-satisfied tuples: *, 0
-            //        // ct.Tuples.Add(new List<string>() { TmsManager.WildcardValue, TmsManager.FalseValue });
-            //        foreach (var rel in excludedReltions)
-            //        {
-            //            constraintType.Tuples.Add(new List<string>() { setIx.ToString(), rel.Name, TmsManager.FalseValue });
-            //        }
-            //    }
-            //    else
-            //    {
-            //        foreach (var rel in includedRelations)
-            //        {
-            //            constraintType.Tuples.Add(new List<string>() { setIx.ToString(), rel.Name });
-            //        }
-            //    }
-            //}
+        //    //        // Adding the non-satisfied tuples: *, 0
+        //    //        // ct.Tuples.Add(new List<string>() { TmsManager.WildcardValue, TmsManager.FalseValue });
+        //    //        foreach (var rel in excludedReltions)
+        //    //        {
+        //    //            constraintType.Tuples.Add(new List<string>() { setIx.ToString(), rel.Name, TmsManager.FalseValue });
+        //    //        }
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        foreach (var rel in includedRelations)
+        //    //        {
+        //    //            constraintType.Tuples.Add(new List<string>() { setIx.ToString(), rel.Name });
+        //    //        }
+        //    //    }
+        //    //}
 
-            //this.ConstraintTypes.Add(constraintType.Name, constraintType.CreateIConstraintType(cdaStarTms, this.Domains));
-        }
+        //    //this.ConstraintTypes.Add(constraintType.Name, constraintType.CreateIConstraintType(cdaStarTms, this.Domains));
+        //}
 
         /// <summary>
         /// Creates the metric constraint types
@@ -573,8 +577,8 @@ namespace Gecko.StructuralReasoner.Tms
             // Creating the "Greater than" (a>b) constraint type
             constraintType = new GKOConstraintType()
             {
-                Id = TmsManager.CTNameGreaterThan,
-                Name = TmsManager.CTNameGreaterThan
+                Id = CTNameGreaterThan,
+                Name = CTNameGreaterThan
             };
             constraintType.Signature = new List<GKODomainAbstract>() { metricDomain, metricDomain };
             if (enableSoftConstraints)
@@ -591,7 +595,7 @@ namespace Gecko.StructuralReasoner.Tms
                     {
                         // in some cases the non-satisfied tuples are added: *, *, 0
                         // tuples.Add(new List<string>() { TmsManager.WildcardValue, TmsManager.WildcardValue, TmsManager.FalseValue });
-                        tuples.Add(new List<string>() { a.ToString(), b.ToString(), a > b ? TmsManager.TrueValue : TmsManager.FalseValue });
+                        tuples.Add(new List<string>() { a.ToString(), b.ToString(), a > b ? TrueValue : FalseValue });
                     }
                 }
                 else
@@ -610,8 +614,8 @@ namespace Gecko.StructuralReasoner.Tms
             // Creating the "Greater or equals" (a>=b) constraint type
             constraintType = new GKOConstraintType()
             {
-                Id = TmsManager.CTNameGreaterOrEquals,
-                Name = TmsManager.CTNameGreaterOrEquals
+                Id = CTNameGreaterOrEquals,
+                Name = CTNameGreaterOrEquals
             };
             constraintType.Signature = new List<GKODomainAbstract>() { metricDomain, metricDomain };
             if (enableSoftConstraints)
@@ -628,7 +632,7 @@ namespace Gecko.StructuralReasoner.Tms
                     {
                         // in some cases the non-satisfied tuples are added: *, *, 0
                         // tuples.Add(new List<string>() { TmsManager.WildcardValue, TmsManager.WildcardValue, TmsManager.FalseValue });
-                        tuples.Add(new List<string>() { a.ToString(), b.ToString(), a >= b ? TmsManager.TrueValue : TmsManager.FalseValue });
+                        tuples.Add(new List<string>() { a.ToString(), b.ToString(), a >= b ? TrueValue : FalseValue });
                     }
                 }
                 else
@@ -647,8 +651,8 @@ namespace Gecko.StructuralReasoner.Tms
             // Creating the "Equals" (a=b) constraint type
             constraintType = new GKOConstraintType()
             {
-                Id = TmsManager.CTNameEquals,
-                Name = TmsManager.CTNameEquals
+                Id = CTNameEquals,
+                Name = CTNameEquals
             };
             constraintType.Signature = new List<GKODomainAbstract>() { metricDomain, metricDomain };
             if (enableSoftConstraints)
@@ -681,8 +685,8 @@ namespace Gecko.StructuralReasoner.Tms
             // Creating the "Not equals" (a!=b) constraint type
             constraintType = new GKOConstraintType()
             {
-                Id = TmsManager.CTNameNotEquals,
-                Name = TmsManager.CTNameNotEquals
+                Id = CTNameNotEquals,
+                Name = CTNameNotEquals
             };
             constraintType.Signature = new List<GKODomainAbstract>() { metricDomain, metricDomain };
             if (enableSoftConstraints)
@@ -699,7 +703,7 @@ namespace Gecko.StructuralReasoner.Tms
                     {
                         // in some cases the non-satisfied tuples are added: *, *, 0
                         // tuples.Add(new List<string>() { TmsManager.WildcardValue, TmsManager.WildcardValue, TmsManager.FalseValue });
-                        tuples.Add(new List<string>() { a.ToString(), b.ToString(), a != b ? TmsManager.TrueValue : TmsManager.FalseValue });
+                        tuples.Add(new List<string>() { a.ToString(), b.ToString(), a != b ? TrueValue : FalseValue });
                     }
                 }
                 else
@@ -721,8 +725,8 @@ namespace Gecko.StructuralReasoner.Tms
             // Creating the "Plus" (a + b = c) constraint type
             constraintType = new GKOConstraintType()
             {
-                Id = TmsManager.CTNamePlus,
-                Name = TmsManager.CTNamePlus
+                Id = CTNamePlus,
+                Name = CTNamePlus
             };
             constraintType.Signature = new List<GKODomainAbstract>() { metricDomain, metricDomain, metricDomain };
             if (enableSoftConstraints)
@@ -741,7 +745,7 @@ namespace Gecko.StructuralReasoner.Tms
                         {
                             // in some cases the non-satisfied tuples are added: *, *, *, 0
                             // tuples.Add(new List<string>() { TmsManager.WildcardValue, TmsManager.WildcardValue, TmsManager.WildcardValue, TmsManager.FalseValue });
-                            tuples.Add(new List<string>() { a.ToString(), b.ToString(), c.ToString(), (a + b) == c ? TmsManager.TrueValue : TmsManager.FalseValue });
+                            tuples.Add(new List<string>() { a.ToString(), b.ToString(), c.ToString(), (a + b) == c ? TrueValue : FalseValue });
                         }
                     }
                 }
