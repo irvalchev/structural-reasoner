@@ -56,7 +56,7 @@ namespace Gecko.StructuralReasoner.Relations
                 GKODomain boolDomain = TmsManager.GenerateBoolDomain();
                 string dVarSat = constraint.GetSatDVarName();
 
-                // This will create a constraint sying that the edge dvar is matching the chosen relation and the relation's dvar is TRUE, or if they are not matching and the relation's dvar is FALSE
+                // This will create a constraint saying that the edge dvar is matching the chosen relation and the relation's dvar is TRUE, or if they are not matching and the relation's dvar is FALSE
                 foreach (var relation in constraint.AllowedRelations)
                 {
                     TmsConstraint tmsConstraint = new TmsConstraint();

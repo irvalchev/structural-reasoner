@@ -11,6 +11,7 @@ namespace Gecko.StructuralReasoner.Relations
         public const string MetricRelationsName = "Metric relations";
         public const string IntervalAlgebraName = "Interval algebra";
         public const string PointsAlgebraName = "Points algebra";
+        public const string ExtendedPointsAlgebraName = "Extended Points algebra";
         public const string Rcc8Name = "RCC8";
     }
 
@@ -48,6 +49,15 @@ namespace Gecko.StructuralReasoner.Relations
     {
         public const string After = "After";
         public const string Before = "Before";
+        public const string Equals = "Equals";
+    }
+
+    public struct ExtendedPointsAlgebraRelationNames
+    {
+        public const string After = "After";
+        public const string RightAfter = "Right After";
+        public const string Before = "Before";
+        public const string RightBefore = "Right Before";
         public const string Equals = "Equals";
     }
 

@@ -20,6 +20,7 @@ namespace Gecko.StructuralReasoner.Relations
             CreateMetricRelations();
             CreateIntervalAlgebra();
             CreatePointsAlgebra();
+            CreateExtendedPointsAlgebra();
             CreateRcc8();
         }
 
@@ -57,6 +58,14 @@ namespace Gecko.StructuralReasoner.Relations
             get
             {
                 return StructuralRelationsManager.GetRelationFamily(RelationFamilyNames.PointsAlgebraName);
+            }
+        }
+
+        public static RelationFamily ExtendedPointAlgebra
+        {
+            get
+            {
+                return StructuralRelationsManager.GetRelationFamily(RelationFamilyNames.ExtendedPointsAlgebraName);
             }
         }
 
@@ -125,6 +134,7 @@ namespace Gecko.StructuralReasoner.Relations
 
             types.AddRange(GenerateRcc8ConstrTypes());
             types.AddRange(GeneratePointsAlgebraConstrTypes());
+            types.AddRange(GenerateExtendedPointsAlgebraConstrTypes());
             types.AddRange(GenerateIntervalAlgebraConstrTypes());
 
             return types;
@@ -473,6 +483,65 @@ namespace Gecko.StructuralReasoner.Relations
             CalculiDomains.Add(relationsDomain);
         }
 
+        private static void CreateExtendedPointsAlgebra()
+        {
+            List<BinaryRelation> extendedPointsRelations = new List<BinaryRelation>();
+            BinaryRelation rel;
+            string relName;
+            string relMeaning;
+            List<Type> relSignature;
+            RelationFamily family;
+            GKODomain relationsDomain;
+
+            #region Relations
+            // Before (<)
+            relName = ExtendedPointsAlgebraRelationNames.Before;
+            relMeaning = "A is before B";
+            relSignature = new List<Type>() { typeof(ComponentRelationPart), typeof(ComponentRelationPart) };
+            rel = new QualitativeRelation(relName, relMeaning, relSignature);
+            extendedPointsRelations.Add(rel);
+            // Right Before (<)
+            relName = ExtendedPointsAlgebraRelationNames.RightBefore;
+            relMeaning = "A is right before B";
+            relSignature = new List<Type>() { typeof(ComponentRelationPart), typeof(ComponentRelationPart) };
+            rel = new QualitativeRelation(relName, relMeaning, relSignature);
+            extendedPointsRelations.Add(rel);
+            // After (>)
+            relName = ExtendedPointsAlgebraRelationNames.After;
+            relMeaning = "A is after B";
+            relSignature = new List<Type>() { typeof(ComponentRelationPart), typeof(ComponentRelationPart) };
+            rel = new QualitativeRelation(relName, relMeaning, relSignature);
+            extendedPointsRelations.Add(rel);
+            // Right After (>)
+            relName = ExtendedPointsAlgebraRelationNames.RightAfter;
+            relMeaning = "A is right after B";
+            relSignature = new List<Type>() { typeof(ComponentRelationPart), typeof(ComponentRelationPart) };
+            rel = new QualitativeRelation(relName, relMeaning, relSignature);
+            extendedPointsRelations.Add(rel);
+            // Equals (=)
+            relName = ExtendedPointsAlgebraRelationNames.Equals;
+            relMeaning = "A and B are equal";
+            relSignature = new List<Type>() { typeof(ComponentRelationPart), typeof(ComponentRelationPart) };
+            rel = new QualitativeRelation(relName, relMeaning, relSignature);
+            extendedPointsRelations.Add(rel);
+
+            // Adding the extended points algebra relation family in the list of families
+            family = new RelationFamily(RelationFamilyNames.ExtendedPointsAlgebraName, extendedPointsRelations);
+            Relations.AddRange(extendedPointsRelations);
+            RelationFamilies.Add(family);
+            family.EqualsRelation = StructuralRelationsManager.GetRelation(family.Name, ExtendedPointsAlgebraRelationNames.Equals);
+            #endregion
+
+            // Creating the relation family domain
+            relationsDomain = new GKODomain()
+            {
+                Id = family.GetTmsRelationsDomainName(),
+                Name = family.GetTmsRelationsDomainName(),
+                Values = family.Relations.Select(x => x.Name).ToList()
+            };
+            CalculiDomains.Add(relationsDomain);
+        }
+
         private static IEnumerable<GKOConstraintType> GeneratePointsAlgebraConstrTypes()
         {
             GKOConstraintType constraintType;
@@ -504,6 +573,81 @@ namespace Gecko.StructuralReasoner.Relations
             tuples.Add(new List<string>() { "Equals", "After", "After" });
             tuples.Add(new List<string>() { "Equals", "Before", "Before" });
             tuples.Add(new List<string>() { "Equals", "Equals", "Equals" });
+            #endregion
+
+            constraintType.Tuples = tuples;
+            constraintTypes.Add(constraintType);
+
+            return constraintTypes;
+        }
+
+        private static IEnumerable<GKOConstraintType> GenerateExtendedPointsAlgebraConstrTypes()
+        {
+            GKOConstraintType constraintType;
+            List<List<string>> tuples;
+            List<GKOConstraintType> constraintTypes = new List<GKOConstraintType>();
+            RelationFamily family = GetRelationFamily(RelationFamilyNames.ExtendedPointsAlgebraName);
+            GKODomain relationsDomain = GetDomain(family.GetTmsRelationsDomainName());
+
+            // Creating the constraint type for the relations composition
+            constraintType = new GKOConstraintType()
+            {
+                Id = family.GetTmsCompositionConstraintName(),
+                Name = family.GetTmsCompositionConstraintName()
+            };
+            constraintType.Signature = new List<GKODomainAbstract>() { relationsDomain, relationsDomain, relationsDomain };
+
+            tuples = new List<List<string>>();
+            #region tuples
+            tuples.Add(new List<string>() { "Before", "Before", "Before"});
+            tuples.Add(new List<string>() { "Before", "Right Before", "Before"});
+            tuples.Add(new List<string>() { "Before", "Equals", "Before"});
+            tuples.Add(new List<string>() { "Before", "Equals", "Right Before"});
+            tuples.Add(new List<string>() { "Before", "Right After", "Equals"});
+            tuples.Add(new List<string>() { "Before", "Right After", "Right Before"});
+            tuples.Add(new List<string>() { "Before", "Right After", "Before"});
+            tuples.Add(new List<string>() { "Before", "After", "Before"});
+            tuples.Add(new List<string>() { "Before", "After", "Right Before"});
+            tuples.Add(new List<string>() { "Before", "After", "Equals"});
+            tuples.Add(new List<string>() { "Before", "After", "Right After"});
+            tuples.Add(new List<string>() { "Before", "After", "After"});
+            tuples.Add(new List<string>() { "Right Before", "Before", "Before"});
+            tuples.Add(new List<string>() { "Right Before", "Right Before", "Before"});
+            tuples.Add(new List<string>() { "Right Before", "Equals", "Before"});
+            tuples.Add(new List<string>() { "Right Before", "Equals", "Right Before"});
+            tuples.Add(new List<string>() { "Right Before", "Right After", "Equals"});
+            tuples.Add(new List<string>() { "Right Before", "After", "Equals"});
+            tuples.Add(new List<string>() { "Right Before", "After", "Right After"});
+            tuples.Add(new List<string>() { "Right Before", "After", "After"});
+            tuples.Add(new List<string>() { "Equals", "Before", "Before" });
+            tuples.Add(new List<string>() { "Equals", "Before", "Right Before"});
+            tuples.Add(new List<string>() { "Equals", "Right Before", "Before"});
+            tuples.Add(new List<string>() { "Equals", "Right Before", "Right Before"});
+            tuples.Add(new List<string>() { "Equals", "Equals", "Equals"});
+            tuples.Add(new List<string>() { "Equals", "Right After", "Right After"});
+            tuples.Add(new List<string>() { "Equals", "Right After", "After"});
+            tuples.Add(new List<string>() { "Equals", "After", "Right After"});
+            tuples.Add(new List<string>() { "Equals", "After", "After"});
+            tuples.Add(new List<string>() { "Right After", "Before", "Equals"});
+            tuples.Add(new List<string>() { "Right After", "Before", "Right Before"});
+            tuples.Add(new List<string>() { "Right After", "Before", "Before"});
+            tuples.Add(new List<string>() { "Right After", "Right Before", "Equals"});
+            tuples.Add(new List<string>() { "Right After", "Equals", "Right After"});
+            tuples.Add(new List<string>() { "Right After", "Equals", "After"});
+            tuples.Add(new List<string>() { "Right After", "Right After", "After"});
+            tuples.Add(new List<string>() { "Right After", "After", "After"});
+            tuples.Add(new List<string>() { "After", "Before", "Before"});
+            tuples.Add(new List<string>() { "After", "Before", "Right Before"});
+            tuples.Add(new List<string>() { "After", "Before", "Equals"});
+            tuples.Add(new List<string>() { "After", "Before", "Right After"});
+            tuples.Add(new List<string>() { "After", "Before", "After"});
+            tuples.Add(new List<string>() { "After", "Right Before", "Before"});
+            tuples.Add(new List<string>() { "After", "Right Before", "Right Before"});
+            tuples.Add(new List<string>() { "After", "Right Before", "Equals"});
+            tuples.Add(new List<string>() { "After", "Equals", "Right After"});
+            tuples.Add(new List<string>() { "After", "Equals", "After"});
+            tuples.Add(new List<string>() { "After", "Right After", "After"});
+            tuples.Add(new List<string>() { "After", "After", "After"});
             #endregion
 
             constraintType.Tuples = tuples;
