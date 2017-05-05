@@ -21,7 +21,7 @@ namespace Gecko.StructuralReasoner.TestConfiguration
             CreateDifferentPositionsConstr();
             //CreateOddBeforeEven();
             //Create6thBefore10th();
-            CreateNoGapsConstr();
+            //CreateNoGapsConstr();
             //CreateIntervalStartEndConstraint();
 
         }

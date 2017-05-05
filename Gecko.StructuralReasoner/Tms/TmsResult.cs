@@ -11,7 +11,16 @@ namespace Gecko.StructuralReasoner.Tms
         /// <summary>
         /// The value assignment of all decision variables. The name of the variable is used as a key
         /// </summary>
-        public Dictionary<string, string> AllVariables { get; set; }
+        public Dictionary<string, string> AllVariables
+        {
+            get
+            {
+                var result = new Dictionary<string, string>();
+                NormalVariables.ToList().ForEach(x => result.Add(x.Key, x.Value));
+                UtilityVariables.ToList().ForEach(x => result.Add(x.Key, x.Value));
+                return result;
+            }
+        }
 
         /// <summary>
         /// The value assignment of normal decision variables (ie without soft ones). The name of the variable is used as a key

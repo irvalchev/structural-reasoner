@@ -39,7 +39,10 @@ namespace Gecko.StructuralReasoner.ConstraintRepresentation
             // ToDo: This might throw an exception
             foreach (var edge in SolvedNetwork.Edges.Values)
             {
-                QualitativeRelation relation = this.SolvedNetwork.RelationFamily.Relations.Single(x => x.Name == TmsSolution.NormalVariables[(edge as QualitativeEdge).GetDVarName()]) as QualitativeRelation;
+                QualitativeRelation relation = this.SolvedNetwork.RelationFamily.Relations
+                    .Single(x =>  
+                    x.Name == TmsSolution.NormalVariables[(edge as QualitativeEdge).GetDVarName()]) 
+                    as QualitativeRelation;
 
                 Solution.Add(new Tuple<GKOComponent, GKOComponent>(edge.StartNode.Component, edge.EndNode.Component), relation);
             }

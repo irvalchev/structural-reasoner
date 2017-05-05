@@ -89,7 +89,6 @@ namespace Gecko.StructuralReasoner.Tms
         /// <param name="constraints">The constraint to be satisfied</param>
         public void Solve(List<TmsDecisionVariable> decisionVariables, List<TmsDecisionVariable> softDecisionVariables, List<TmsConstraint> constraints, SolutionData solutionInformation)
         {
-            TmsResult result = null;
             ISolutionsIterator solutionIterator;
             ISolution solution;
 
@@ -130,28 +129,35 @@ namespace Gecko.StructuralReasoner.Tms
 
             if (solution != null)
             {
-                // ToDo: Assign solution information
-                solutionInformation.SolutionFound = true;
-
-                Debug.WriteLine("");
-                Debug.WriteLine(solution.AsString());
+                TmsResult result = new TmsResult()
+                {
+                    NormalVariables = new Dictionary<string, string>(),
+                    UtilityVariables = new Dictionary<string, string>()
+                };
 
                 Debug.WriteLine("");
                 Debug.WriteLine("Utility: " + solution.Utility());
-
-                Debug.WriteLine("");
                 Debug.WriteLine("-----------DVARS-----------");
                 foreach (var var in decisionVariables)
                 {
-                    Debug.WriteLine(string.Format("{0} - {1}", var.Name, solution.Value(var.Name)));
+                    var value = var.Domain.GetValues()[solution.Value(var.Name)];
+                    result.NormalVariables.Add(var.Name, value);
+                    Debug.WriteLine(string.Format("{0} - {1}({2})", var.Name, solution.Value(var.Name), value));
                 }
-
-                Debug.WriteLine("");
                 Debug.WriteLine("-----------SOFT-DVARS-----------");
                 foreach (var var in softDecisionVariables)
                 {
-                    Debug.WriteLine(string.Format("{0} - {1}", var.Name, solution.Value(var.Name)));
+                    var value = var.Domain.GetValues()[solution.Value(var.Name)];
+                    result.UtilityVariables.Add(var.Name, value);
+                    Debug.WriteLine(string.Format("{0} - {1}({2})", var.Name, solution.Value(var.Name), value));
+                    if (value == FalseValue) {
+                        solutionInformation.IsRelaxedSolution = true;
+                    }
                 }
+                Debug.WriteLine("SOLUTION: " + solution.AsString());
+                
+                solutionInformation.SolutionFound = true;
+                solutionInformation.TmsSolution = result;
             }
             else
             {

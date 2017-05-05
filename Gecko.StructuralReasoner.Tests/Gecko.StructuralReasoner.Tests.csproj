@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="TmsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StructuralReasonerTests.cs" />
+    <Compile Include="Cs3Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cs3.cdastar.mqm.license" />

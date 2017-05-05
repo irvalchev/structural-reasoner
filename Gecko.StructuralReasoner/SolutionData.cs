@@ -31,7 +31,7 @@ namespace Gecko.StructuralReasoner
         /// <summary>
         /// The end time of the solving process
         /// </summary>
-        public DateTime EndTime { get; internal set; }
+        public DateTime EndTime { get; private set; }
 
         /// <summary>
         /// Specifies whether a solution to the problem is found
@@ -51,7 +51,7 @@ namespace Gecko.StructuralReasoner
         /// <summary>
         /// The solution found by the TMS
         /// </summary>
-        internal TmsResult TmsSolution { get; private set; }
+        internal TmsResult TmsSolution { get; set; }
 
         /// <summary>
         /// ToDo: Holds information about the reason for the inconsistency
