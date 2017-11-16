@@ -10,19 +10,58 @@ namespace Razr.CS3.mqm.test
     [TestClass]
     public class TmsPerformanceTests
     {
+        /// <summary>
+        /// Specifies whether to use detailed log (output in the console)
+        /// </summary>
+        private static bool DetailedLog = false;
+
         [TestMethod/*, Timeout(5000)*/]
-        public void TestPerformance()
+        public void Test5Components_1Solution()
+        {
+            TestPerformance(5, 1, DetailedLog);
+        }
+
+        [TestMethod/*, Timeout(5000)*/]
+        public void Test5Components_10Solution()
+        {
+            TestPerformance(5, 10, DetailedLog);
+        }
+
+        [TestMethod/*, Timeout(5000)*/]
+        public void Test5Components_100Solution()
+        {
+            TestPerformance(5, 100, DetailedLog);
+        }
+
+        [TestMethod/*, Timeout(5000)*/]
+        public void Test6Components_1Solution()
+        {
+            TestPerformance(6, 1, DetailedLog);
+        }
+
+        [TestMethod/*, Timeout(5000)*/]
+        public void Test6Components_10Solution()
+        {
+            TestPerformance(6, 10, DetailedLog);
+        }
+
+        [TestMethod/*, Timeout(5000)*/]
+        public void Test6Components_100Solution()
+        {
+            TestPerformance(6, 100, DetailedLog);
+        }
+
+        private void TestPerformance(int numberOfElements, int maxSolutions, bool detailedLog)
         {
             var cdaStarTms = new Workspace();
 
             const int MetricMinValue = 1;
-            const int NumberOfElements = 6;
 
             // These values are just for convenience
             const string TrueValue = "T";
             const string FalseValue = "F";
             var boolDomainValues = new string[] { TrueValue, FalseValue };
-            var metricDomainValues = Enumerable.Range(MetricMinValue, NumberOfElements).Select(x => x.ToString()).ToArray();
+            var metricDomainValues = Enumerable.Range(MetricMinValue, numberOfElements).Select(x => x.ToString()).ToArray();
 
             // Domains
             var boolDomain = cdaStarTms.DefDomain("Boolean", boolDomainValues);
@@ -33,9 +72,9 @@ namespace Razr.CS3.mqm.test
             var tuples = new List<List<string>>();
             // Not equals (!=) constraint
             tuples = new List<List<string>>();
-            for (int a = MetricMinValue; a < NumberOfElements + 1; a += 1)
+            for (int a = MetricMinValue; a < numberOfElements + 1; a += 1)
             {
-                for (int b = MetricMinValue; b < NumberOfElements + 1; b += 1)
+                for (int b = MetricMinValue; b < numberOfElements + 1; b += 1)
                 {
                     // in some cases the non-satisfied tuples are added: *, *, 0
                     // tuples.Add(new List<string>() { TmsManager.WildcardValue, TmsManager.WildcardValue, TmsManager.FalseValue });
@@ -47,9 +86,9 @@ namespace Razr.CS3.mqm.test
             );
             // Greater than (>) constraint
             tuples = new List<List<string>>();
-            for (int a = MetricMinValue; a < NumberOfElements + 1; a += 1)
+            for (int a = MetricMinValue; a < numberOfElements + 1; a += 1)
             {
-                for (int b = MetricMinValue; b < NumberOfElements + 1; b += 1)
+                for (int b = MetricMinValue; b < numberOfElements + 1; b += 1)
                 {
                     tuples.Add(new List<string>() { a.ToString(), b.ToString(), a > b ? TrueValue : FalseValue });
                 }
@@ -60,13 +99,14 @@ namespace Razr.CS3.mqm.test
 
             // Variables and attributes
             var variables = new List<IVariable>();
-            for (int i = 0; i < NumberOfElements; i++)
+            for (int i = 0; i < numberOfElements; i++)
             {
                 variables.Add(cdaStarTms.DefVariable("position_component_" + (i + 1), metricDomain));
             }
-            variables.ForEach(v => cdaStarTms.DefAttribute(v.Name));        
+            variables.ForEach(v => cdaStarTms.DefAttribute(v.Name));
 
             // Conditions and utility variables/attributes 
+            int constraintsCount = 0;
             // Different positions
             for (int i = 1; i < variables.Count; i++)
             {
@@ -80,6 +120,7 @@ namespace Razr.CS3.mqm.test
 
                     // The constraint itself
                     cdaStarTms.DefConstraint(ctNotEquals, new IVariable[] { variables[j], variables[i], softVar });
+                    constraintsCount++;
                 }
             }
 
@@ -96,15 +137,22 @@ namespace Razr.CS3.mqm.test
             solution = solutionIterator.FirstSolution();
 
             Assert.IsNotNull(solution);
-            //while (solution != null)
+            int solutionCount = 0;
+            while (solutionCount < maxSolutions)
             {
-                Debug.WriteLine("Utility: " + solution.Utility());
-                Debug.WriteLine("AsString: " + solution.AsString());
-                Debug.WriteLine("");
+                if (detailedLog)
+                {
+                    Debug.WriteLine("Utility: " + solution.Utility());
+                    Debug.WriteLine("AsString: " + solution.AsString());
+                    Debug.WriteLine("");
+                }
 
                 solution = solutionIterator.NextSolution();
+                solutionCount++;
             }
 
+            Debug.WriteLine("Constraints count: " + constraintsCount);
+            Debug.WriteLine("Enumerated solutions: " + solutionCount);
             Debug.WriteLine("Finished in " + watch.ElapsedMilliseconds + "ms");
         }
 
